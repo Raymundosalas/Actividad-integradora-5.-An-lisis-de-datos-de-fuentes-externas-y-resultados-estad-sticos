@@ -1,0 +1,171 @@
+# ============================================
+# ACTIVIDAD 5 - PANDAS Y MATPLOTLIB
+# ANÁLISIS DE DATOS CSV EN JUPYTERLAB
+# ============================================
+
+# IMPORTAR LIBRERÍAS
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# ============================================
+# CARGAR ARCHIVO CSV
+# ============================================
+
+# Leer archivo CSV
+datos = pd.read_csv('ventas.csv')
+
+# Mostrar contenido del archivo
+print("===================================")
+print("DATOS DEL ARCHIVO CSV")
+print("===================================")
+print(datos)
+
+# ============================================
+# INFORMACIÓN GENERAL DEL DATAFRAME
+# ============================================
+
+print("\n===================================")
+print("INFORMACIÓN GENERAL")
+print("===================================")
+print(datos.info())
+
+# ============================================
+# ESTADÍSTICAS DESCRIPTIVAS
+# ============================================
+
+print("\n===================================")
+print("RESUMEN ESTADÍSTICO")
+print("===================================")
+print(datos.describe())
+
+# ============================================
+# CÁLCULOS ESTADÍSTICOS
+# ============================================
+
+# Promedio de ventas
+promedio_ventas = datos['Ventas'].mean()
+
+# Promedio de gastos
+promedio_gastos = datos['Gastos'].mean()
+
+# Venta máxima
+venta_maxima = datos['Ventas'].max()
+
+# Venta mínima
+venta_minima = datos['Ventas'].min()
+
+# Gasto máximo
+gasto_maximo = datos['Gastos'].max()
+
+# Gasto mínimo
+gasto_minimo = datos['Gastos'].min()
+
+# Suma total de ventas
+total_ventas = datos['Ventas'].sum()
+
+# Suma total de gastos
+total_gastos = datos['Gastos'].sum()
+
+# ============================================
+# MOSTRAR RESULTADOS
+# ============================================
+
+print("\n===================================")
+print("RESULTADOS ESTADÍSTICOS")
+print("===================================")
+
+print("Promedio de ventas:", promedio_ventas)
+print("Promedio de gastos:", promedio_gastos)
+
+print("Venta máxima:", venta_maxima)
+print("Venta mínima:", venta_minima)
+
+print("Gasto máximo:", gasto_maximo)
+print("Gasto mínimo:", gasto_minimo)
+
+print("Total de ventas:", total_ventas)
+print("Total de gastos:", total_gastos)
+
+# ============================================
+# GRÁFICA DE LÍNEAS - VENTAS
+# ============================================
+
+plt.figure(figsize=(12,6))
+
+plt.plot(
+    datos['Mes'],
+    datos['Ventas'],
+    marker='o',
+    linewidth=3
+)
+
+plt.title('Ventas Mensuales')
+plt.xlabel('Meses')
+plt.ylabel('Ventas')
+
+plt.xticks(rotation=45)
+
+plt.grid(True)
+
+plt.show()
+
+# ============================================
+# GRÁFICA DE BARRAS - GASTOS
+# ============================================
+
+plt.figure(figsize=(12,6))
+
+plt.bar(
+    datos['Mes'],
+    datos['Gastos']
+)
+
+plt.title('Gastos Mensuales')
+plt.xlabel('Meses')
+plt.ylabel('Gastos')
+
+plt.xticks(rotation=45)
+
+plt.show()
+
+# ============================================
+# GRÁFICA COMPARATIVA
+# ============================================
+
+plt.figure(figsize=(12,6))
+
+plt.plot(
+    datos['Mes'],
+    datos['Ventas'],
+    marker='o',
+    label='Ventas'
+)
+
+plt.plot(
+    datos['Mes'],
+    datos['Gastos'],
+    marker='s',
+    label='Gastos'
+)
+
+plt.title('Comparación de Ventas y Gastos')
+plt.xlabel('Meses')
+plt.ylabel('Cantidad')
+
+plt.legend()
+
+plt.grid(True)
+
+plt.xticks(rotation=45)
+
+plt.show()
+
+# ============================================
+# EXPORTAR RESULTADOS A NUEVO CSV
+# ============================================
+
+datos['Ganancia'] = datos['Ventas'] - datos['Gastos']
+
+datos.to_csv('resultado_ventas.csv', index=False)
+
+print("\nArchivo resultado_ventas.csv generado correctamente")
